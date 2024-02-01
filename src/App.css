@@ -36,12 +36,21 @@
   font-size: 24px;
 }
 
+.search__btn {
+  position: absolute;
+  right: 1%;
+  top: 15%;
+  height: 24px;
+  width: 48px;
+}
+
 .searchbar__wrapper,
 .searchbar {
   width: 100%;
   max-width: 500px;
   height: 36px;
   border-radius: 4px;
+  position: relative;
 }
 
 .searchbar {

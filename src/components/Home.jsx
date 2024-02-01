@@ -1,77 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
+import Navbar from "./Navbar";
 
-function Home() {
-//   //950c424d API KEY
-//   const movieListElem = document.querySelector(".movie__list");
-//   const searchValue = document.querySelector(".search__value");
-//   const n = 6;
-//   let movieData = {};
-//   //SEARCH BAR
-//   async function searchTerm(event) {
-//     const movieId = event.target.value;
-//     getMovies(movieId);
-//     searchValue.innerHTML = movieId;
-//   }
+const Home = () => {
+  const n = 1
+  const [searchedMovies, setSearchedMovies] = useState([]);
 
-//   function renderMovies() {
-//     if (movieData.Search) {
-//       movieListElem.innerHTML = movieData.Search.map((movie) =>
-//         getMovieDescription(movie)
-//       )
-//         .slice(0, n)
-//         .join("");
+  const handleSearch = (query) => {
+    const apiUrl = `https://www.omdbapi.com/?apikey=950c424d&s=${query}`;
 
-//       document.querySelector(".no__movies--container").style.display = "none";
-//       movieListElem.style.display = "block";
-//     } else {
-//       console.log("movie not found");
+    fetch(apiUrl)
+      .then((response) => response.json())
+      .then((data) => setSearchedMovies(data.Search || []))
+      .catch((error) => console.error("Error fetching data: ", error));
+  };
 
-//       document.querySelector(".no__movies--container").style.display = "block";
-//       movieListElem.style.display = "none";
-//     }
-//   }
-
-//   function searchResult(searchValue) {
-//     return `<div class="results__bar">
-//                   <h2>Search results for: <span class="purple search__value" onchange="searchTerm(event)">${searchValue}</span></h2>`;
-//   }
-
-//   //FETCHING MOVIES FROM BACKEND
-//   async function getMovies(movieId) {
-//     const movies = await fetch(
-//       `https://www.omdbapi.com/?apikey=950c424d&s=${movieId}`
-//     );
-//     movieData = await movies.json();
-//     setTimeout(() => {
-//       renderMovies();
-//     }, 1000);
-//   }
-
-//   //AMENDING HTML DYNAMICALLY
-//   function getMovieDescription(movie) {
-//     return `<div class="movie">
-  
-//           <figure>
-//               <img
-//               src="${movie.Poster}"
-//               alt=""
-//               class="movie__img"
-//               />
-//           </figure>
-//           <div class="movie__description--list">
-//               <h3 class="movie__description movie__title">${movie.Title}</h3>
-//               <p class="movie__description movie__type"><span class="movie__description--heading">Type:</span> ${movie.Type}</p>
-//               <p class="movie__description movie__year"><span class="movie__description--heading">Year:</span> ${movie.Year}</p>
-//               <p class="movie__description movie__imdb-id"><span class="movie__description--heading">IMDB ID:</span> ${movie.imdbID}</p>
-//           </div>
-//       </div>`;
-//   }
   return (
     <section className="landing__page">
+      <Navbar onSearch={handleSearch} />
       <div className="container">
         <div className="row">
           <div className="featured__wrapper">
-            <div className="featured__main"> featured main</div>
+            {searchedMovies.map((movie) => (
+              <figure className="featured__main" key={movie.imdbID}>
+                <img src={movie.Poster} alt={movie.Title} />
+              </figure>
+            ))}
             <div className="featured__sub"> Up Next</div>
           </div>
         </div>
@@ -99,6 +52,6 @@ function Home() {
       </div>
     </section>
   );
-}
+};
 
 export default Home;
