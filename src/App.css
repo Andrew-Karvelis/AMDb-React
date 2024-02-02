@@ -61,23 +61,20 @@
 
 .landing__page {
   background-color: #292929;
-  height: 100vh;
-  color: white;
+  height: 100%;
 }
 
 .container {
   width: 100%;
   max-width: 1600px;
-  border: white;
-  background-color: sienna;
   justify-content: center;
   margin: 0 auto;
+  padding: 48px 0;
 }
 
 .row {
  display: flex;
  flex-direction: column;
- background-color: pink;
  max-width: 1200px;
  width: 100%;
  margin: 0 auto;
@@ -88,20 +85,58 @@
 }
 
 .featured__main {
-  width: 80%;
-  height: 600px;
-  background-color: lime;
+  width: 100%;
+  height: 700px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #212121;
 }
 
-.featured__sub {
-  height: 600px;
+.featured__main--poster-container {
+  display: flex;
+  align-items: flex-start;
+}
+
+.featured__main--movie--title {
+  margin-left: 10px;
+  width: 300px;
+  text-align: center;
+  color: #fff;
+}
+
+.featured__main--movie-description {
+  line-height: 1.5;
+}
+
+.featured__sub--list {
+  height: 700px;
   width: 200px;
-  background-color: white;
   margin-left: 24px;
   color: #0096FF;
   font-weight: bold;
   text-align: center;
   font-size: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 12px 0;
+}
+
+.featured__sub--movie {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+}
+
+.featured__sub--movie-subtitle {
+  font-size: 18px;
+  padding-bottom: 8px;
+}
+
+.featured__sub--poster {
+  width: 50%;
 }
 
 .latest__releases--list {

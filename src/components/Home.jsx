@@ -2,16 +2,23 @@ import React, { useState } from "react";
 import Navbar from "./Navbar";
 
 const Home = () => {
-  const n = 1
   const [searchedMovies, setSearchedMovies] = useState([]);
+  const [featuredMovie, setFeaturedMovie] = useState({});
+  const [selectedMovie, setSelectedMovie] = useState(null);
 
+  
   const handleSearch = (query) => {
     const apiUrl = `https://www.omdbapi.com/?apikey=950c424d&s=${query}`;
-
+    
     fetch(apiUrl)
-      .then((response) => response.json())
-      .then((data) => setSearchedMovies(data.Search || []))
-      .catch((error) => console.error("Error fetching data: ", error));
+    .then((response) => response.json())
+    .then((data) => setSearchedMovies(data.Search || []))
+    .catch((error) => console.error("Error fetching data: ", error));
+  }
+
+  const handleMovieClick = (movie) => {
+    setSelectedMovie(movie);
+    setFeaturedMovie(movie);
   };
 
   return (
@@ -20,12 +27,44 @@ const Home = () => {
       <div className="container">
         <div className="row">
           <div className="featured__wrapper">
-            {searchedMovies.map((movie) => (
-              <figure className="featured__main" key={movie.imdbID}>
-                <img src={movie.Poster} alt={movie.Title} />
-              </figure>
-            ))}
-            <div className="featured__sub"> Up Next</div>
+
+            {featuredMovie && (
+              <div className="featured__main" key={featuredMovie.imdbID}>
+                <div
+                  className="featured__main--poster-container"
+                  key={featuredMovie.imdbID}
+                >
+                  <img src={featuredMovie.Poster} alt={featuredMovie.Title} />
+                  <div className="featured__main--movie-description">
+                    <h2 className="featured__main--movie--title">
+                      {featuredMovie.Title}
+                    </h2>
+                    <p className="featured__main--movie-plot">
+                      {selectedMovie?.Plot || ""}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <div className="featured__sub--list">
+              {searchedMovies.slice(0, 3).map((movie) => (
+                <div 
+                  className="featured__sub--movie"
+                  key={movie.imdbID}
+                  onClick={() => handleMovieClick(movie)}
+                >
+                  <h3 className="featured__sub--movie-subtitle">
+                    {movie.Title}
+                  </h3>
+                  <img
+                    src={movie.Poster}
+                    alt={movie.Title}
+                    className="featured__sub--poster"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
