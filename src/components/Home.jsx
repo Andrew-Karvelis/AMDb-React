@@ -1,10 +1,12 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
+import Watchlist from "./Watchlist";
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchedMovies, setSearchedMovies] = useState([]);
   const [featuredMovie, setFeaturedMovie] = useState({});
+  const [watchlist, setWatchlist] = useState([]);
 
   useEffect(() => {}, [searchQuery]);
 
@@ -22,6 +24,11 @@ const Home = () => {
     setFeaturedMovie(movie);
   };
 
+  const addToWatchList = () => {
+    setWatchlist((prevWatchlist) => 
+    [...prevWatchlist, featuredMovie])
+  };
+
   return (
     <section className="landing__page">
       <Navbar onSearch={handleSearch} />
@@ -35,6 +42,10 @@ const Home = () => {
                   key={featuredMovie.imdbID}
                 >
                   <img src={featuredMovie.Poster} alt={featuredMovie.Title} />
+                  <div 
+                  className="watchlist__icon" 
+                  onClick={addToWatchList}
+                  >+</div>
                   <div className="featured__main--movie-description">
                     <h2 className="featured__main--movie--title">
                       {featuredMovie.Title}
@@ -73,22 +84,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-
-      <div className="container">
-        <div className="user__watchlist">Watchlist</div>
-      </div>
-      <div className="container">
-        <div className="top__rated--wrapper">
-          <h2 className="home__subtitle">Top 10 on AMDb this week</h2>
-          <div className="top__rated--list">
-            <div className="top__rated--item">item1</div>
-            <div className="top__rated--item">item2</div>
-            <div className="top__rated--item">item3</div>
-            <div className="top__rated--item">item4</div>
-            <div className="top__rated--item">item5</div>
-          </div>
-        </div>
-      </div>
+      <Watchlist watchlist={watchlist} />
     </section>
   );
 };

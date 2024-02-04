@@ -4,6 +4,10 @@
   padding: 0;
 }
 
+.red {
+  color: red;
+}
+
 /* NAVBAR */
 
 .nav__bar--wrapper {
@@ -69,12 +73,13 @@
   justify-content: center;
   margin: 0 auto;
   padding: 48px 0;
+  background-color: #0095ff;
 }
 
 .featured__container {
-  
   height: 100vh;
 }
+
 
 .container:nth-child(2) {
   background-color: #292929;
@@ -140,6 +145,27 @@
   align-items: flex-start;
 }
 
+.watchlist__icon {
+  position: absolute;
+  height: 75px;
+  width: 50px;
+  font-size: 48px;
+  background-color: #0096ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #242424;
+  border-radius: 0 0 18px 18px;
+  opacity: .8;
+}
+.watchlist__icon:hover {
+  opacity: 1;
+  transition: 300ms ease;
+  color: #fff;
+  cursor: pointer;
+}
+
 .featured__main--movie--title {
   margin-left: 10px;
   width: 300px;
@@ -179,12 +205,15 @@
 
 .featured__sub--poster {
   width: 50%;
+  cursor: pointer;
 }
 
 .latest__releases--list {
   display: flex;
   justify-content: space-around;
 }
+
+/* WATCHLIST */
 
 .user__watchlist {
   display: flex;
@@ -251,10 +280,6 @@ footer {
   top: -150%;
   min-width: 100px;
   min-height: 80px;
-}
-
-.user__watchlist {
-  color: white;
 }
 
 .latest__movie--description {
