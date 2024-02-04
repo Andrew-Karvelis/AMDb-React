@@ -26,7 +26,7 @@ function Latest() {
   return (
     <div className="container">
       <div className="latest__releases--wrapper">
-        <h2 className="home__subtitle">Latest Releases</h2>
+        <h2 className="home__subtitle">Latest Releases From Search:</h2>
         <div className="latest__releases--list">
           {movies.slice(0, 5).map((movie) => (
             <div key={movie.imdbID} className="latest__movie">

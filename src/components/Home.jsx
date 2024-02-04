@@ -5,7 +5,6 @@ const Home = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchedMovies, setSearchedMovies] = useState([]);
   const [featuredMovie, setFeaturedMovie] = useState({});
-  const bannerRef = useRef(null);
 
   useEffect(() => {}, [searchQuery]);
 
@@ -23,35 +22,10 @@ const Home = () => {
     setFeaturedMovie(movie);
   };
 
-  const truncateSearchQuery = (query) => {
-    const bannerWidth = bannerRef.current?.clientWidth || 0;
-    const threshold = 0.9 * bannerWidth;
-
-    if (query.length > threshold) {
-      let truncatedText = "";
-      let currentWidth = 0;
-
-      for (let char of query) {
-        currentWidth += char === " " ? 7 : 10; // Adjust these values based on your font and spacing
-        if (currentWidth > threshold) {
-          truncatedText += "...";
-          break;
-        }
-        truncatedText += char;
-      }
-
-      console.log("truncatedText:", truncatedText);
-
-      return truncatedText;
-    }
-
-    return query;
-  };
-
   return (
     <section className="landing__page">
       <Navbar onSearch={handleSearch} />
-      <div className="container">
+      <div className="container featured__container">
         <div className="row">
           <div className="featured__wrapper">
             {featuredMovie && (
@@ -74,10 +48,8 @@ const Home = () => {
             )}
 
             <div className="featured__main--banner">
-              <h1>Search results for: </h1>
-              <h1 className="search__query--title">
-                {truncateSearchQuery(searchQuery)}
-              </h1>
+              <h1 className="search__title">Search results for:</h1>
+              <span className="search__query--title">{searchQuery}</span>
             </div>
 
             <div className="featured__sub--list">
