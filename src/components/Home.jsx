@@ -1,24 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Navbar from "./Navbar";
 
 const Home = () => {
+  const [searchQuery, setSearchQuery] = useState("");
   const [searchedMovies, setSearchedMovies] = useState([]);
   const [featuredMovie, setFeaturedMovie] = useState({});
-  const [selectedMovie, setSelectedMovie] = useState(null);
+  const bannerRef = useRef(null);
 
-  
+  useEffect(() => {}, [searchQuery]);
+
   const handleSearch = (query) => {
+    setSearchQuery(query);
     const apiUrl = `https://www.omdbapi.com/?apikey=950c424d&s=${query}`;
-    
+
     fetch(apiUrl)
-    .then((response) => response.json())
-    .then((data) => setSearchedMovies(data.Search || []))
-    .catch((error) => console.error("Error fetching data: ", error));
-  }
+      .then((response) => response.json())
+      .then((data) => setSearchedMovies(data.Search || []))
+      .catch((error) => console.error("Error fetching data: ", error));
+  };
 
   const handleMovieClick = (movie) => {
-    setSelectedMovie(movie);
     setFeaturedMovie(movie);
+  };
+
+  const truncateSearchQuery = (query) => {
+    const bannerWidth = bannerRef.current?.clientWidth || 0;
+    const threshold = 0.9 * bannerWidth;
+
+    if (query.length > threshold) {
+      let truncatedText = "";
+      let currentWidth = 0;
+
+      for (let char of query) {
+        currentWidth += char === " " ? 7 : 10; // Adjust these values based on your font and spacing
+        if (currentWidth > threshold) {
+          truncatedText += "...";
+          break;
+        }
+        truncatedText += char;
+      }
+
+      console.log("truncatedText:", truncatedText);
+
+      return truncatedText;
+    }
+
+    return query;
   };
 
   return (
@@ -27,7 +54,6 @@ const Home = () => {
       <div className="container">
         <div className="row">
           <div className="featured__wrapper">
-
             {featuredMovie && (
               <div className="featured__main" key={featuredMovie.imdbID}>
                 <div
@@ -40,16 +66,23 @@ const Home = () => {
                       {featuredMovie.Title}
                     </h2>
                     <p className="featured__main--movie-plot">
-                      {selectedMovie?.Plot || ""}
+                      {featuredMovie?.Plot || ""}
                     </p>
                   </div>
                 </div>
               </div>
             )}
 
+            <div className="featured__main--banner">
+              <h1>Search results for: </h1>
+              <h1 className="search__query--title">
+                {truncateSearchQuery(searchQuery)}
+              </h1>
+            </div>
+
             <div className="featured__sub--list">
               {searchedMovies.slice(0, 3).map((movie) => (
-                <div 
+                <div
                   className="featured__sub--movie"
                   key={movie.imdbID}
                   onClick={() => handleMovieClick(movie)}
@@ -68,16 +101,11 @@ const Home = () => {
           </div>
         </div>
       </div>
+
       <div className="container">
-        <div className="latest__releases--wrapper">
-          <h2 className="home__subtitle">Latest Releases</h2>
-          <div className="latest__releases--list">
-            <div>item1</div>
-            <div>item2</div>
-            <div>item3</div>
-          </div>
-        </div>
         <div className="user__watchlist">Watchlist</div>
+      </div>
+      <div className="container">
         <div className="top__rated--wrapper">
           <h2 className="home__subtitle">Top 10 on AMDb this week</h2>
           <div className="top__rated--list">
