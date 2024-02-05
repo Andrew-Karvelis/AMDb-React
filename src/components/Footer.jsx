@@ -4,7 +4,7 @@ function Footer() {
   return (
     <footer>
       <div className="copyright">Copyright © Andrew Movie Database | AMDb</div>
-      <button className="btn btn__logo">AMDb</button>
+      <a href="#"><button className="btn btn__logo">AMDb</button></a>
     </footer>
   );
 }

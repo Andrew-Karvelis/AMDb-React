@@ -7,7 +7,6 @@ const Home = () => {
   const [searchedMovies, setSearchedMovies] = useState([]);
   const [featuredMovie, setFeaturedMovie] = useState({});
   const [watchlist, setWatchlist] = useState([]);
-  const [visibleMovies, setVisibleMovies] = useState(3);
   const [startIndex, setStartIndex] = useState(0);
   const [error, setError] = useState(null);
 
@@ -41,6 +40,12 @@ const Home = () => {
       setError(null);
     }
   };
+
+  const removeFromWatchlist = (movieId) => {
+    const updatedWatchlist = watchlist.filter((movie) => movie.id !== movieId);
+    setWatchlist(updatedWatchlist);
+  };
+
 
   return (
     <section className="landing__page">
@@ -108,7 +113,7 @@ const Home = () => {
         <button onClick={() => setError(null)}>X</button>
       </div>
       )}
-      <Watchlist watchlist={watchlist} />
+      <Watchlist watchlist={watchlist} removeFromWatchlist={removeFromWatchlist} />
     </section>
   );
 };

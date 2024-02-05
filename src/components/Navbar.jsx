@@ -22,7 +22,7 @@ const Navbar = ({ onSearch }) => {
             Search!
           </button>
         </div>
-        <button className="btn">Sign In</button>
+        <button className="btn btn__signin">Sign In</button>
       </div>
     </nav>
   );
