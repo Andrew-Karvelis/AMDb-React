@@ -25,26 +25,31 @@ function Latest() {
 
   return (
     <div className="container">
-      <div className="latest__releases--wrapper">
-        <h2 className="home__subtitle">
-          Latest Releases: <span className="red">(was meant to dynamically pull the latest movies
-          released to OMDBAPI but I couldn't figure out how to do it, so enjoy
-          hardcoded deadpool instead)</span>
-        </h2>
-        <div className="latest__releases--list">
-          {movies.slice(0, 5).map((movie) => (
-            <div key={movie.imdbID} className="latest__movie">
-              <img
-                className="latest__movie--img"
-                src={movie.Poster}
-                alt={`${movie.Title} Poster`}
-              />
-              <div className="latest__movie--description">
-                <div>{movie.Title} </div>
-                <div>({movie.Year})</div>
+      <div className="row">
+        <div className="latest__releases--wrapper">
+          <h2 className="home__subtitle">
+            Latest Releases:{" "}
+            <span className="red">
+              (was meant to dynamically pull the latest movies released to
+              OMDbAPI but I couldn't figure out how to do it. So enjoy
+              hard-coded deadpool instead)
+            </span>
+          </h2>
+          <div className="latest__releases--list">
+            {movies.slice(0, 5).map((movie) => (
+              <div key={movie.imdbID} className="latest__movie">
+                <img
+                  className="latest__movie--img"
+                  src={movie.Poster}
+                  alt={`${movie.Title} Poster`}
+                />
+                <div className="latest__movie--description">
+                  <div>{movie.Title} </div>
+                  <div>({movie.Year})</div>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </div>
