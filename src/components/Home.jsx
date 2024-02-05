@@ -70,7 +70,7 @@ const Home = () => {
                       {featuredMovie.Title}
                     </h2>
                     <p className="featured__main--movie-plot">
-                      {featuredMovie?.Plot || ""}
+                      {featuredMovie.Plot}
                     </p>
                   </div>
                 </div>
