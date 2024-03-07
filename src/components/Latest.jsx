@@ -28,12 +28,7 @@ function Latest() {
       <div className="row">
         <div className="latest__releases--wrapper">
           <h2 className="home__subtitle">
-            Latest Releases:{" "}
-            <span className="red">
-              (was meant to dynamically pull the latest movies released to
-              OMDbAPI but I couldn't figure out how to do it. So enjoy
-              hard-coded deadpool instead)
-            </span>
+            Latest Releases: Deadpool
           </h2>
           <div className="latest__releases--list">
             {movies.slice(0, 5).map((movie) => (

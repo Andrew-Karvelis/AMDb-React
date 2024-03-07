@@ -7,6 +7,12 @@ const Navbar = ({ onSearch }) => {
     onSearch(searchQuery);
   };
 
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      handleSearch();
+    }
+  };
+
   return (
     <nav className="nav__bar--wrapper">
       <div className="nav__bar">
@@ -17,6 +23,7 @@ const Navbar = ({ onSearch }) => {
             placeholder="Search AMDb"
             className="searchbar"
             onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={handleKeyPress}
           />
           <button onClick={handleSearch} className="btn search__btn">
             Search!
